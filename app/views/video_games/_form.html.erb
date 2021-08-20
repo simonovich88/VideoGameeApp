@@ -1,0 +1,39 @@
+<%= simple_form_for [@user, @video_game], :html=> { class:'video_form'} do |f| %>
+  <div class="form-inputs">
+    <%= f.input :title,
+                required: false,
+                label: false,
+                autofocus: true,
+                placeholder: "Title" %>
+    <%= f.input :year,
+                required: false,
+                label: false,
+                autofocus: true,
+                placeholder: "Year" %>
+    <%= f.input :cover_photo,
+                required: false,
+                label: false,
+                autofocus: true,
+                placeholder: "Cover Photo(url)" %>
+    <%= f.input :description,
+                required: false,
+                label: false,
+                autofocus: true,
+                placeholder: "Description" %>
+    <%= f.input :price,
+                required: false,
+                label: false,
+                autofocus: true,
+                placeholder: "Price" %>
+    <%= f.association :genres,
+                required: false,
+                label: false,
+                autofocus: true,
+                placeholder: "Genre" %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

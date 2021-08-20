@@ -1,0 +1,71 @@
+  <div class="container my-5 request_page">
+    <h4>
+      <strong>Incoming Requests</strong>
+      <%= link_to request_history_path do %>
+       <!--    <i class="fas fa-scroll request-history-btn"></i>-->
+      <% end %>
+    </h4>
+  </div>
+
+  <!-- Only activate scroll bar if more than 5 cards -->
+    <div class="d-flex incoming_requests" style="width:80%; overflow-x: scroll; margin: auto">
+
+
+    <% @incoming_rental_requests.each do |request| %>
+      <%= link_to video_game_path(request.video_game) do %>
+        <div class="card-small mx-2 request-card">
+          <%= image_tag request.video_game.cover_photo, class: "cover-img request-img" %>
+
+          <div class="card-small-info" style= "display: block; padding: 10px;" >
+            <h5><strong><%= request.video_game.title %></strong></h5>
+            <p><%= request.video_game.year %></p> <p><%= request.video_game.price %>.00$</p> 
+            <p><%= request.message %></p>
+            <%= link_to accept_request_path(request), method: 'patch', data: {confirm: "Accept this request?"} do %>
+              <i class="fas fa-check-circle tick"></i>
+            <% end %>
+            <%= link_to reject_request_path(request), method: 'patch', data: {confirm: "Reject this request?"} do %>
+              <i class="fas fa-times-circle cross"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="container my-5 request_page">
+    <h4><strong>Outgoing Requests </strong></h4>
+  </div>
+
+  <% if @outgoing_rental_requests.size > 5 %>
+    <div class="d-flex incoming_requests" style="width:80%; overflow:auto; margin: auto">
+  <% else %>
+      <div class="d-flex incoming_requests" style="width:80%; margin: auto">
+  <% end %>
+
+    <% @outgoing_rental_requests.each do |request| %>
+      <%= link_to video_game_path(request.video_game) do %>
+        <div class="card-small mx-2 request-card">
+
+          <%= image_tag request.video_game.cover_photo, class: "cover-img request-img" %>
+
+          <div class="card-small-info" style="display: block; padding: 10px;" >
+            <h5><strong><%= request.video_game.title %></strong></h5>
+            <p><%= request.video_game.year %></p> <p><%= request.video_game.price %>.00$</p>
+            <p><%= request.message %></p>
+            <img src="<%= request.video_game.user.avatar %>" alt="User profile pic">
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+
+    <br>
+
+    <h2 class="text-center my-3 font-weight-bold">Diagrama</h2>
+
+    <%= pie_chart @query %>-
+
+    <br>
+
+

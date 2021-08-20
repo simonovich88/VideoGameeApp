@@ -1,0 +1,66 @@
+<!-- Cover photo -->
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-3 col-sm-12" >
+      <%= image_tag @video_game.cover_photo, class: "w-100" %>
+        <% if @video_game.cover_photo.blank? %>
+          <div class="my-4">
+            <%= image_tag "https://images-na.ssl-images-amazon.com/images/I/51lh93vBeRL._AC_SL1461_.jpg", style: "height: 268px; width: 182px" %>
+          </div>
+        <% end %>
+      <div class="d-flex p-2" style="background-color: white; color: black;">
+
+        <div class="flex-column mr-3">
+          <h4><%= @video_game.title %></h4>
+          <p><%= @video_game.year %></p>
+        </div>
+
+        <div class="flex-column">
+          <% if @video_game.user.avatar %>
+            <%= image_tag @video_game.user.avatar, class: "avatar" %>
+          <% else %>
+            <%= image_tag "https://m.media-amazon.com/images/I/31Adsy-ITzL._SL160_.jpg", style: "height: 60px"%>
+          <% end %>
+          <p><%= @video_game.user.first_name %></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-12 align-self-center">
+      <div class="buttons">
+
+        <%= render 'wishlist_star' %>
+
+        <% if @video_game.user == current_user %>
+          <%= link_to edit_video_game_path do %>
+            <i class="edit fas fa-edit mb-3"></i>
+          <% end %>
+        <% end %>
+
+        <% if @video_game.user == current_user %>
+          <%= link_to video_game_path(@video_game), method: 'delete', data: {confirm: "Delete this listing?"} do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+        <% end %>
+
+      </div>
+      <p><%= @video_game.description %></p>
+      <%= simple_form_for @rental_request do |f| %>
+        <%= f.input :start_date, as: :date, start_year: Date.today.year, order: [:day, :month, :year], html5: true, input_html: { min: Date.today.to_s, value: Date.today.to_s } %>
+        <%= f.input :end_date, as: :date, start_year: (Date.today+3).year, order: [:day, :month, :year], html5: true, input_html: { min: (Date.today+1).to_s, value: (Date.today+3).to_s } %>
+        <%= f.input :message, as: :text %>
+        <%= f.button :submit, class: "btn btn-primary" %>
+        <%= f.hidden_field :video_game_id, value: @video_game.id %>
+        <!-- After finishing the login function and page -->
+        <!--remember to add another hidden field with :user_id, value: current_user.id -->
+      <% end %>
+      <%= render 'shared/previous_page' %>
+    </div>
+  </div>
+
+</div>
+
+<br>
+<br>

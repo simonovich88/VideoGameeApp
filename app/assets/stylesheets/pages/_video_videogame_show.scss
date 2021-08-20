@@ -1,0 +1,21 @@
+i {
+  font-size: 2rem;
+  opacity: .7;
+  margin-left: 8px;
+  margin-bottom: 8px;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+i.wish {
+  color: #ffba00;
+}
+
+i.edit {
+  color: #310090;
+}
+
+.btn {
+  display: inline;
+}

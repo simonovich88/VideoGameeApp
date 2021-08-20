@@ -1,0 +1,24 @@
+
+<% filtered_vids = @video_games.reject do |cd| %>
+  <% cd.user == current_user %>
+<% end %>
+
+<% filtered_vids.last(20).each do |video_game| %>
+  <div class="card-small mx-2 homepage-card">
+    <% if video_game.cover_photo.blank? %>
+      <%= link_to video_game_path(video_game)  do %>
+        <%= image_tag "https://images-na.ssl-images-amazon.com/images/I/51lh93vBeRL._AC_SL1461_.jpg", style: "height: 300px; width: 200px" %>
+      <% end %>
+    <% else %>
+      <%= link_to video_game_path(video_game)  do %>
+        <%= image_tag video_game.cover_photo, class: "cover-img" %>
+      <% end %>
+    <% end %>
+
+    <div class="card-small-info">
+      <h5><strong><%= link_to video_game.title, video_game_path(video_game)%></strong></h5>
+      <p><%= video_game.year %></p> <p><%= video_game.price %>.00$</p>
+      <img src="<%=video_game.user.avatar%>" alt="User profile pic">
+    </div>
+  </div>
+<% end %>

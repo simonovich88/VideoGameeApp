@@ -1,0 +1,28 @@
+<div class="container wishlist">
+  <h1>My Wishlist</h1>
+
+  <p><%= link_to "Back to Profile", user_path(current_user), class: "btn btn-primary" %></p>
+
+  <div class = "wishlist-grid">
+    <% @video_ids.each do |video| %>
+      <div class="wishlist-item">
+        <% cover = image_tag(video.cover_photo, class:'cover-img') %>
+        <%= link_to cover, video_game_path(video.id) %>
+        <div class="wishlist-text">
+          <% if User.find(video.user_id).avatar.blank? %>
+              <%= image_tag(User.find(video.user_id), class: "avatar wishlist-avatar") %>
+          <% else %>
+              <%= image_tag(User.find(video.user_id).avatar, class: "avatar wishlist-avatar") %>
+          <% end %>
+          
+          <p><%= video.title %></p>
+          <p><%= video.price %>$ </p>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,41 @@
+.request_page i {
+  color: $color5;
+}
+
+.incoming_requests .tick {
+  color: #1cdd49;
+  font-size: 2rem;
+  position: absolute;
+  bottom: 20px;
+  left: 115px;
+  opacity: .7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.incoming_requests .cross {
+  color: #fc1f1b;
+  font-size: 2rem;
+  position: absolute;
+  bottom: 20px;
+  left: 152px;
+  opacity: .7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.request-history-btn {
+  font-size: x-large;
+}
+
+.request-img {
+  border-radius: 0px;
+}
+
+.request-card {
+  padding: 0;
+}

@@ -1,0 +1,17 @@
+.carousel-inner {
+  position: relative;
+}
+
+.carousel-inner > h1 {
+  position: absolute;
+  top: 57px;
+  left: 153px;
+  z-index: 1;
+  text-shadow: 1px 1px rgba(0,0,0,0.5);
+  color: white;
+  font-weight: bolder;
+}
+
+.carousel-inner h5, .carousel-inner p {
+  text-shadow: 1px 1px rgba(0,0,0,0.5);
+}

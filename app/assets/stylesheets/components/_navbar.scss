@@ -1,0 +1,59 @@
+.navbar-lewagon {
+  justify-content: space-between;
+  background: $color3;
+  transition: 0.2s;
+  
+}
+
+.navbar-lewagon .navbar-collapse {
+  flex-grow: 0;
+  color: white;
+}
+
+.navbar a {
+  transition: 0.2s;
+  color: $color5;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  // background: black;
+}
+
+.navbar a {
+  color: $color5 !important;
+  opacity: .8;
+}
+
+.navbar:hover {
+  background-color: rgba(26, 29, 41, .7);
+  // opacity: .7;
+}
+.navbar:hover a {
+  color: white !important;
+}
+
+.nav-link {
+  margin-bottom: 0;
+}
+
+.navbar.scrolled {
+  background-color: rgba(26, 29, 41, 0.7);
+  &:hover {
+  background-color: rgba(26, 29, 41, 1);
+  }
+}
+
+.dropdown-menu {
+  padding-left: 10px;
+}
+
+.dropdown-menu-right {
+  background-color: $color2;
+
+}

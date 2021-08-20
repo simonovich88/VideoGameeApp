@@ -1,0 +1,15 @@
+// Import page-specific CSS files here.
+@import "home";
+@import "user_show";
+@import "wishlist";
+@import "rental_request_index";
+@import "video_videogame_show";
+
+body {
+  background: rgba(97, 33, 15, .8);
+  color: $color5;
+}
+
+.page-layout {
+  min-height: calc(100vh - 130px);
+}

@@ -1,0 +1,180 @@
+<%= render 'shared/carousel' %>
+<%# Search bar %>
+ 
+<% if user_signed_in? %>
+      <div class="col-sm-4">
+
+    <%= render 'form', video_game: @video_game %> <!-- fech ---> 
+    <h3>Administrator data</h3>
+    <p>email: nada@nada.com</p>
+    <p>password: 123abc123</p>
+    <%= link_to 'Admin', new_admin_user_session_path, class: "btn btn-info btn-sm" %>
+    </div>
+
+      
+    <div class="container mt-5">
+        <%= form_tag video_games_path, method: :get, class: 'form-inline search_bar' do %>
+            <%= text_field_tag :query, params[:query], class: "form-control", placeholder: "Find a videogame"%>
+            <%= submit_tag "Search", class: "btn btn-primary ml-2" %>
+        <% end %>
+      
+
+    </div>
+
+  <% end %>
+
+
+
+
+<%# Últimos videojuegos %>
+<% if @pg_search_documents.exists? %>
+  <div class="container mt-5 mb-5">
+      <h4><strong>Search results </strong></h4>
+  </div>
+  <% if @pg_search_documents.size > 5 %>
+      <div class="d-flex incoming_requests" style="width:100%; overflow-x: scroll; margin: auto">
+    <% else %>
+        <div class="d-flex incoming_requests" style="width:80%; margin: auto">
+    <% end %>
+
+      <% @pg_search_documents.each do |item| %>
+        <%= link_to video_game_path(item) do %>
+          <div class="card-small mx-2">
+            <% if item.cover_photo.blank? %>
+              <%= image_tag "https://images-na.ssl-images-amazon.com/images/I/51lh93vBeRL._AC_SL1461_.jpg", style: "height: 268px; width: 182px" %>
+            <% else %>
+              <%= image_tag item.cover_photo, class: "cover-img" %>
+            <% end %>
+            <div class="card-small-info" style="display: block" >
+              <h5><strong><%= item.title %></strong></h5>
+              <p><%= item.year %></p> <p><%= item.price %>.00$</p>
+              <img src="<%= item.user.avatar %>" alt="User profile pic">
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+<% end %>
+<%# Últimos videojuegos %>
+  <div class="container mt-5">
+    <h4><strong>Últimos videojuegos agregados</strong></h4>
+  </div>
+  <div class="d-flex scroll-section align-items-center" style="width:100%; overflow-x: scroll">
+    <%= render 'shared/cd_scroll' %>
+  </div>
+
+
+<% if user_signed_in? %>
+
+<%# Popular section %>
+  <div class="container">
+    <h4><strong>Mas Populares</strong></h4>
+  </div>
+
+  <div class="d-flex scroll-section align-items-center" style="width:100%; overflow-x: scroll">
+    <% rentals = RentalRequest.where(status: "Pending") %>
+    <% vids_rented = rentals.map { |rental| rental.video_game_id} %>
+    <% most_rented = vids_rented.map { |id| VideoGame.find(id) }%>
+
+    <% filtered_pop = most_rented.reject do |cd| %>
+      <% cd.user == current_user %>
+    <% end %>
+
+    <% filtered_pop.shuffle.each do |video_game| %>
+        <div class="card-small mx-2 homepage-card">
+          <a href=<%= video_game_path(video_game) %>>
+            <img class="cover-img" src="<%=video_game.cover_photo%>" alt="Game cover">
+          </a>
+
+          <div class="card-small-info">
+            <h5><strong><%= link_to video_game.title, video_game_path(video_game)%></strong></h5>
+            <p><%= video_game.year %></p> <p><%= video_game.price %>.00$</p>
+            <img src="<%=video_game.user.avatar%>" alt="User profile pic">
+          </div>
+
+        </div>
+    <% end %>
+
+  </div>
+
+ 
+
+<%# Accion section %>
+  <div class="container">
+    <h4><strong>Accion</strong></h4>
+  </div>
+  <div class="d-flex scroll-section align-items-center" style="width:100%; overflow-x: scroll">
+    <% action = Genre.find_by(name: "action")%>
+    <% tagged_action = VideoGenre.where(genre: action)%>
+    <% array_id_action = tagged_action.limit(10).map { |tag| tag.video_game_id } %>
+    <% video_action = array_id_action.map { |id| VideoGame.find(id) }%>
+    <% filtered_com = video_action.reject do |cd| %>
+      <% cd.user == current_user %>
+    <% end %>
+
+    <% filtered_com.shuffle.each do |video_game| %>
+        <div class="card-small mx-2 homepage-card">
+          <a href=<%= video_game_path(video_game) %>>
+            <img class="cover-img" src="<%=video_game.cover_photo%>" alt="cd cover">
+          </a>
+
+          <div class="card-small-info">
+            <h5><strong><%= link_to video_game.title, video_game_path(video_game)%></strong></h5>
+            <p><%= video_game.year %></p> <p><%= video_game.price %>.00$</p>
+            <img src="<%=video_game.user.avatar%>" alt="User profile pic">
+          </div>
+
+        </div>
+    <% end %>
+
+  </div>
+
+<%# Animation section %>
+  <div class="container">
+    <h4><strong> Animados </strong></h4>
+  </div>
+
+  <div class="d-flex scroll-section align-items-center" style="width:100%; overflow-x: scroll">
+    <% animation = Genre.find_by(name: "animation")%>
+    <% tagged_animation = VideoGenre.where(genre: animation)%>
+    <% array_id_animation = tagged_animation.map { |tag| tag.video_game_id } %>
+    <% video_animation = array_id_animation.map { |id| VideoGame.find(id) }%>
+    <% filtered_fam = video_action.reject do |cd| %>
+      <% cd.user == current_user %>
+    <% end %>
+
+
+    <% filtered_fam.shuffle.each do |video_game| %>
+        <div class="card-small mx-2 homepage-card">
+          <a href=<%= video_game_path(video_game) %>>
+            <img class="cover-img" src="<%=video_game.cover_photo%>" alt="Game cover">
+          </a>
+
+          <div class="card-small-info">
+            <h5><strong><%= link_to video_game.title, video_game_path(video_game)%></strong></h5>
+            <p><%= video_game.year %></p> <p><%= video_game.price %>.00$</p>
+            <img src="<%=video_game.user.avatar%>" alt="User profile pic">
+          </div>
+
+        </div>
+    <% end %>
+  </div>
+
+    <br>
+
+    <h2 class="text-center my-3 font-weight-bold">Diagrama Estados </h2>
+
+    <%= pie_chart @query %>
+
+    <br>
+
+    <h2 class="text-center my-3 font-weight-bold">Diagrama VideoGames </h2>
+
+    <%= pie_chart @query2%>
+
+    <br>
+
+   <% else  %>
+  <p style="center" > Para observar todos los juegos Iniciar sesion</p>
+  
+   <% end %>

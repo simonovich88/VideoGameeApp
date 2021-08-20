@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VideoGames</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="VideoGames - Video Game Rentals" />
+    <meta property="og:type" content="video.movie" />
+    <meta property="og:description" 
+          content="Video game rental platform !" />
+    
+    <meta property="og:image" content="https://w7.pngwing.com/pngs/115/394/png-transparent-compact-disc-optical-disc-cd-and-saucers-angle-electronics-computer.png" />
+    
+
+    
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <%# <link rel="stylesheet" href="node_modules/select2/dist/css/select2.css"> %>
+    <%= javascript_include_tag "//www.google.com/jsapi"%>
+  </head>
+
+  <body>
+    <%= render 'shared/flashes' %>
+
+    <% if user_signed_in? %>
+      <%= render 'shared/navbar_user' %>
+    <% else %>
+      <%= render 'shared/navbar_signin_signup' %>
+    <% end %>
+      <div class="page-layout">
+        <%= yield %>
+      </div>
+    <footer>
+      <div class="footer">
+        <div>
+          <p>© 2021 VideoGames</p>
+        </div>
+        <div class="footer-links">
+          <a href="#"><i class="fab fa-facebook-square"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

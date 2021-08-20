@@ -1,0 +1,16 @@
+// Specific CSS for your home-page
+#query {
+  width: 30vw;
+  margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  #query {
+  width: 50vw;
+  margin: 0;
+  }
+  .search_bar {
+    margin: auto;
+    justify-content: center;
+  }
+}

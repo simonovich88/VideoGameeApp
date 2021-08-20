@@ -1,0 +1,31 @@
+<div class="container user">
+  <div>
+    <h1>My Profile</h1>
+  </div>
+
+<% if @user.avatar.blank? %>
+<% else %>
+
+    <%= image_tag(@user.avatar, class: 'avatar big') %>
+
+      <%= cl_image_tag "dwfqum1jplhin0ekgwzj" %>
+
+    <% end %>
+
+
+  <%= link_to  edit_user_path(current_user) do %>
+    <i class="fas fa-pencil-alt"></i>
+  <% end %>
+  <h2><%= @user.first_name %> <%= @user.last_name %> </h2>
+
+  <p>Email: <%= @user.email %></p>
+
+  <p><%= @user.about %></p>
+
+  <%= link_to "My Wishlist", wishlists_path, class:'btn btn-primary' %>
+  <%= link_to "My Rentals", rental_requests_path, class:'btn btn-primary' %>
+</div>
+
+
+
+

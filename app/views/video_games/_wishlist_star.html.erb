@@ -1,0 +1,11 @@
+<% if @video_game.user != current_user %>
+  <% if @user_wishlist %>
+    <%= link_to wishlist_path(@user_wishlist), method: 'delete' do%>
+      <i class="wish fas fa-star pb-3 pt-3"></i>
+    <% end %>
+  <% else %>
+    <%= link_to video_game_wishlists_path(@video_game), method: 'post' do%>
+      <i class="wish far fa-star pb-3 pt-3"></i>
+    <% end %>
+  <% end %>
+<% end %>
